@@ -1,31 +1,49 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-name: Java CI with Maven
+name: Java CI/CD with Maven
 
 on:
   push:
-    branches: [ "*" ]
+    branches:
+      - "*"  # Build sur toutes les branches
+    tags:
+      - "v*"  # Déploie seulement si un tag est créé (ex: v1.0.0)
   pull_request:
-    branches: [ "*" ]
+    branches:
+      - "*"  # Build aussi sur les PR
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
+
     - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: built-jar
+        path: target/*.jar
+
+  deploy:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')  # Déploie seulement sur un tag "v*"
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download Artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: built-jar
+        path: target
+
+    - name: Publish to GitHub Packages
+      run: mvn deploy
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
