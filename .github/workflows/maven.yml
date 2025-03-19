@@ -42,7 +42,7 @@ jobs:
     - name: Download Artifact
       uses: actions/download-artifact@v4
       with:
-        name: built-jar
+        name: built-artifact
         path: target
 
     - name: Publish to GitHub Packages
