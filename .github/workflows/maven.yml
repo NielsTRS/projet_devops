@@ -3,12 +3,12 @@ name: Java CI/CD with Maven
 on:
   push:
     branches:
-      - "*"  # Build sur toutes les branches
+      - "**" 
     tags:
       - "v*"  # Déploie seulement si un tag est créé (ex: v1.0.0)
   pull_request:
     branches:
-      - "*"  # Build aussi sur les PR
+      - "**" 
 
 jobs:
   build:
