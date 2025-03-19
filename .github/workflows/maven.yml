@@ -29,8 +29,10 @@ jobs:
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: built-jar
-        path: target/*.jar
+        name: built-artifact
+        path: |
+          target/*.jar
+          pom.xml
 
   deploy:
     needs: build
