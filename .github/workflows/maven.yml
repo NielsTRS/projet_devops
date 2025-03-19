@@ -43,7 +43,9 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: built-artifact
-        path: target
+        path: |
+          target/*.jar
+          pom.xml
 
     - name: Publish to GitHub Packages
       run: mvn deploy
