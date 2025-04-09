@@ -39,7 +39,7 @@ public class SelectDataframeTest {
         Dataframe dataframe = createDefaultDataframe();
         SelectDataframe selected = new SelectDataframe(dataframe, 0, 1);
 
-        assertEquals(1, selected.getRowCount());
+        assertEquals("Check of the number of rows with bounds.",1, selected.getRowCount());
     }
 
     @Test
@@ -47,7 +47,7 @@ public class SelectDataframeTest {
         Dataframe dataframe = createDefaultDataframe();
         SelectDataframe selected = new SelectDataframe(dataframe, 0, 1);
 
-        assertEquals(Arrays.asList("Alice", 25, "Engineer"), selected.getRow(0));
+        assertEquals("Check the subDataFrame.",Arrays.asList("Alice", 25, "Engineer"), selected.getRow(0));
     }
 
     @Test
@@ -55,7 +55,7 @@ public class SelectDataframeTest {
         Dataframe dataframe = createDefaultDataframe();
         SelectDataframe selected = new SelectDataframe(dataframe, Arrays.asList("Name", "Profession"));
 
-        assertEquals(2, selected.getRowCount());
+        assertEquals("Check the number of rows with a list.",2, selected.getRowCount());
     }
 
     @Test
@@ -63,7 +63,7 @@ public class SelectDataframeTest {
         Dataframe dataframe = createDefaultDataframe();
         SelectDataframe selected = new SelectDataframe(dataframe, Arrays.asList("Name", "Profession"));
 
-        assertEquals(Arrays.asList("Alice", "Engineer"), selected.getRow(0));
+        assertEquals("Check the first column.",Arrays.asList("Alice", "Engineer"), selected.getRow(0));
     }
 
     @Test
@@ -71,7 +71,7 @@ public class SelectDataframeTest {
         Dataframe dataframe = createDefaultDataframe();
         SelectDataframe selected = new SelectDataframe(dataframe, Arrays.asList("Name", "Profession"));
 
-        assertEquals(Arrays.asList("Bob", "Doctor"), selected.getRow(1));
+        assertEquals("Check the second column.",Arrays.asList("Bob", "Doctor"), selected.getRow(1));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -93,7 +93,7 @@ public class SelectDataframeTest {
         // Select rows where Age > 25
         SelectDataframe selected = new SelectDataframe(dataframe, row -> (int) row.get("Age") > 25);
 
-        assertEquals(1, selected.getRowCount());
+        assertEquals("Check the number of rows for advanced selection.",1, selected.getRowCount());
     }
 
     @Test
@@ -103,6 +103,6 @@ public class SelectDataframeTest {
         // Select rows where Age > 25
         SelectDataframe selected = new SelectDataframe(dataframe, row -> (int) row.get("Age") > 25);
 
-        assertEquals(Arrays.asList("Bob", 30, "Doctor"), selected.getRow(0));
+        assertEquals("Check the row for advanced selection.",Arrays.asList("Bob", 30, "Doctor"), selected.getRow(0));
     }
 }
