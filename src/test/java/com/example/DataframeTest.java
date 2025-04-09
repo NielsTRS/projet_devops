@@ -88,7 +88,7 @@ public class DataframeTest {
         assertEquals(3, dataframe.getColumnCount());
     }
 
-    @Test 
+    @Test(expected = IllegalArgumentException.class) 
     public void InvalidColumnNameTest() {
         List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
         Dataframe dataframe = new Dataframe(columnLabels);
@@ -97,15 +97,10 @@ public class DataframeTest {
         row.put("Age", 25);
         row.put("Profession", "Engineer");
         dataframe.addRow(row);
-
-        try {
-            dataframe.getValue(0, "InvalidColumn");
-        } catch (IllegalArgumentException e) {
-            assertEquals("Column label not found", e.getMessage());
-        }
+        dataframe.getValue(0, "InvalidColumn");
     }
 
-    @Test
+    @Test(expected = IndexOutOfBoundsException.class)
     public void InvalidRowIndexTest() {
         List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
         Dataframe dataframe = new Dataframe(columnLabels);
@@ -114,12 +109,7 @@ public class DataframeTest {
         row.put("Age", 25);
         row.put("Profession", "Engineer");
         dataframe.addRow(row);
-
-        try {
-            dataframe.getValue(1, "Name");
-        } catch (IndexOutOfBoundsException e) {
-            assertEquals("Invalid row index", e.getMessage());
-        }
+        dataframe.getValue(1, "Name");
     }
 
 }
