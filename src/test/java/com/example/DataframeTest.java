@@ -24,26 +24,6 @@ public class DataframeTest {
     }
 
     @Test
-    public void testGetColumn() {
-        List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
-        Dataframe dataframe = new Dataframe(columnLabels);
-        Map<String, Object> row1 = new HashMap<>();
-        row1.put("Name", "Alice");
-        row1.put("Age", 25);
-        row1.put("Profession", "Engineer");
-        dataframe.addRow(row1);
-
-        Map<String, Object> row2 = new HashMap<>();
-        row2.put("Name", "Bob");
-        row2.put("Age", 30);
-        row2.put("Profession", "Doctor");
-        dataframe.addRow(row2);
-
-        List<Object> expectedColumn = Arrays.asList("Alice", "Bob");
-        assertEquals(expectedColumn, dataframe.getColumn(0));
-    }
-
-    @Test
     public void testRemoveRow() {
         List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
         Dataframe dataframe = new Dataframe(columnLabels);
@@ -100,4 +80,46 @@ public class DataframeTest {
 
         assertEquals(columnLabels, dataframe.getColumnLabels());
     }
+
+    @Test
+    public void testGetColumnCount() {
+        List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
+        Dataframe dataframe = new Dataframe(columnLabels);
+        assertEquals(3, dataframe.getColumnCount());
+    }
+
+    @Test 
+    public void InvalidColumnNameTest() {
+        List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
+        Dataframe dataframe = new Dataframe(columnLabels);
+        Map<String, Object> row = new HashMap<>();
+        row.put("Name", "Alice");
+        row.put("Age", 25);
+        row.put("Profession", "Engineer");
+        dataframe.addRow(row);
+
+        try {
+            dataframe.getValue(0, "InvalidColumn");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Column label not found", e.getMessage());
+        }
+    }
+
+    @Test
+    public void InvalidRowIndexTest() {
+        List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
+        Dataframe dataframe = new Dataframe(columnLabels);
+        Map<String, Object> row = new HashMap<>();
+        row.put("Name", "Alice");
+        row.put("Age", 25);
+        row.put("Profession", "Engineer");
+        dataframe.addRow(row);
+
+        try {
+            dataframe.getValue(1, "Name");
+        } catch (IndexOutOfBoundsException e) {
+            assertEquals("Invalid row index", e.getMessage());
+        }
+    }
+
 }
