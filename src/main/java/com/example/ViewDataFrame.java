@@ -7,8 +7,40 @@ import java.util.Map;
 
 public class ViewDataFrame {
     private Dataframe dataframe;
+
     public ViewDataFrame(Dataframe dataframe) {
         this.dataframe = dataframe;
+    }
+
+    public StringBuilder labelsDataFrame(Dataframe dataframe, int index, int size) {
+        StringBuilder lab = new StringBuilder();
+
+        lab.append(" ".repeat(index));
+        List<String> labels = dataframe.getColumnLabels();
+        for (String label : labels) {
+            lab.append(label);
+            lab.append(" ");
+            lab.append(" ".repeat( size - label.length()));
+        }
+        return lab;
+    }
+
+    public StringBuilder bodyDataFrame(Dataframe dataframe, int index, int size, int begin, int end) {
+        StringBuilder body = new StringBuilder();
+        for (int i = begin; i < end; i++) {
+            List<Object> row = dataframe.getRow(i);
+            body.append(i);
+            body.append(" ");
+            body.append(" ".repeat(index - (i + " ").length()));
+            for (int j = 0; j < row.size(); j++) {
+                Object value = row.get(j);
+                body.append(value);
+                body.append(" ");
+                body.append(" ".repeat(size - value.toString().length()));
+            }
+            body.append("\n");
+        }
+        return body;
     }
 
     public void allDataframe(Dataframe dataframe) {
@@ -16,34 +48,10 @@ public class ViewDataFrame {
         int index = 5;
 
         //View of the labels
-        for (int k=0;k<index;k++) {
-            System.out.print(" ");
-        }
-        List<String> labels = dataframe.getColumnLabels();
-        for (String label : labels) {
-            System.out.print(label + " ");
-            for (int j=0;j<size-label.length();j++) {
-                System.out.print(" ");
-            }
-        }
+        System.out.println(labelsDataFrame(dataframe, index, size));
 
-        //View of the rest of the DataFrame
-        System.out.println();
-        for (int i=0;i<dataframe.getRowCount();i++) {
-            List<Object> row = dataframe.getRow(i);
-            System.out.print(i+ " ");
-            for (int k=0;k<index-(i+" ").length();k++) {
-                System.out.print(" ");
-            }
-            for (int j=0;j<row.size();j++) {
-                Object value = row.get(j);
-                System.out.print(value+" ");
-                for (int k=0;k<size-value.toString().length();k++) {
-                    System.out.print(" ");
-                }
-            }
-            System.out.println();
-        }
+        //View of the body of the DataFrame
+        System.out.print(bodyDataFrame(dataframe, index, size, 0, dataframe.getRowCount()));
     }
 
     public void firstRowDataframe(Dataframe dataframe, int nbRows) {
@@ -51,34 +59,10 @@ public class ViewDataFrame {
         int index = 5;
 
         //View of the labels
-        for (int k=0;k<index;k++) {
-            System.out.print(" ");
-        }
-        List<String> labels = dataframe.getColumnLabels();
-        for (String label : labels) {
-            System.out.print(label + " ");
-            for (int j=0;j<size-label.length();j++) {
-                System.out.print(" ");
-            }
-        }
+        System.out.println(labelsDataFrame(dataframe, index, size));
 
-        //View of the rest of the DataFrame
-        System.out.println();
-        for (int i=0;i<nbRows;i++) {
-            List<Object> row = dataframe.getRow(i);
-            System.out.print(i+" ");
-            for (int k=0;k<index-(i+" ").length();k++) {
-                System.out.print(" ");
-            }
-            for (int j=0;j<row.size();j++) {
-                Object value = row.get(j);
-                System.out.print(value+" ");
-                for (int k=0;k<size-value.toString().length();k++) {
-                    System.out.print(" ");
-                }
-            }
-            System.out.println();
-        }
+        //View of the body of the DataFrame
+        System.out.print(bodyDataFrame(dataframe, index, size, 0, nbRows));
     }
 
     public void lastRowDataframe(Dataframe dataframe, int nbRows) {
@@ -86,37 +70,13 @@ public class ViewDataFrame {
         int index = 5;
 
         //View of the labels
-        for (int k=0;k<index;k++) {
-            System.out.print(" ");
-        }
-        List<String> labels = dataframe.getColumnLabels();
-        for (String label : labels) {
-            System.out.print(label + " ");
-            for (int j=0;j<size-label.length();j++) {
-                System.out.print(" ");
-            }
-        }
+        System.out.println(labelsDataFrame(dataframe, index, size));
 
-        //View of the rest of the DataFrame
-        System.out.println();
-        for (int i=nbRows;i<dataframe.getRowCount();i++) {
-            List<Object> row = dataframe.getRow(i);
-            System.out.print(i+ " ");
-            for (int k=0;k<index-(i+" ").length();k++) {
-                System.out.print(" ");
-            }
-            for (int j=0;j<row.size();j++) {
-                Object value = row.get(j);
-                System.out.print(value+" ");
-                for (int k=0;k<size-value.toString().length();k++) {
-                    System.out.print(" ");
-                }
-            }
-            System.out.println();
-        }
+        //View of the body of the DataFrame
+        System.out.print(bodyDataFrame(dataframe, index, size, nbRows, dataframe.getRowCount()));
     }
 
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
         Dataframe dataframe = new Dataframe(columnLabels);
         Map<String, Object> row1 = new HashMap<>();
@@ -135,9 +95,10 @@ public class ViewDataFrame {
         ViewDataFrame view = new ViewDataFrame(dataframe);
         view.allDataframe(dataframe);
         System.out.println();
-        view.firstRowDataframe(dataframe,1);
+        view.firstRowDataframe(dataframe, 1);
         System.out.println();
-        view.lastRowDataframe(dataframe,1);
+        view.lastRowDataframe(dataframe, 1);
+        System.out.println();
 
-    }
+    }*/
 }
