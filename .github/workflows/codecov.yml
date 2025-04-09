@@ -2,9 +2,9 @@ name: Code coverage
 
 on:
   push:
-    branches: [ "workflow/coverage" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "workflow/coverage" ]
+    branches: [ "main" ]
 
 jobs:
   run:
