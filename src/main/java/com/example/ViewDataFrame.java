@@ -5,17 +5,20 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
-public class View {
+public class ViewDataFrame {
     private Dataframe dataframe;
-    public View(Dataframe dataframe) {
+    public ViewDataFrame(Dataframe dataframe) {
         this.dataframe = dataframe;
     }
 
     public void allDataframe(Dataframe dataframe) {
         int size = 20;
+        int index = 5;
 
         //View of the labels
-        System.out.print("  ");
+        for (int k=0;k<index;k++) {
+            System.out.print(" ");
+        }
         List<String> labels = dataframe.getColumnLabels();
         for (String label : labels) {
             System.out.print(label + " ");
@@ -29,6 +32,9 @@ public class View {
         for (int i=0;i<dataframe.getRowCount();i++) {
             List<Object> row = dataframe.getRow(i);
             System.out.print(i+ " ");
+            for (int k=0;k<index-(i+" ").length();k++) {
+                System.out.print(" ");
+            }
             for (int j=0;j<row.size();j++) {
                 Object value = row.get(j);
                 System.out.print(value+" ");
@@ -45,7 +51,9 @@ public class View {
         int index = 5;
 
         //View of the labels
-        System.out.print("       ");
+        for (int k=0;k<index;k++) {
+            System.out.print(" ");
+        }
         List<String> labels = dataframe.getColumnLabels();
         for (String label : labels) {
             System.out.print(label + " ");
@@ -58,7 +66,10 @@ public class View {
         System.out.println();
         for (int i=0;i<nbRows;i++) {
             List<Object> row = dataframe.getRow(i);
-            System.out.print(i);
+            System.out.print(i+" ");
+            for (int k=0;k<index-(i+" ").length();k++) {
+                System.out.print(" ");
+            }
             for (int j=0;j<row.size();j++) {
                 Object value = row.get(j);
                 System.out.print(value+" ");
@@ -72,9 +83,12 @@ public class View {
 
     public void lastRowDataframe(Dataframe dataframe, int nbRows) {
         int size = 20;
+        int index = 5;
 
         //View of the labels
-        System.out.print("  ");
+        for (int k=0;k<index;k++) {
+            System.out.print(" ");
+        }
         List<String> labels = dataframe.getColumnLabels();
         for (String label : labels) {
             System.out.print(label + " ");
@@ -88,6 +102,9 @@ public class View {
         for (int i=nbRows;i<dataframe.getRowCount();i++) {
             List<Object> row = dataframe.getRow(i);
             System.out.print(i+ " ");
+            for (int k=0;k<index-(i+" ").length();k++) {
+                System.out.print(" ");
+            }
             for (int j=0;j<row.size();j++) {
                 Object value = row.get(j);
                 System.out.print(value+" ");
@@ -115,9 +132,11 @@ public class View {
         dataframe.addRow(row2);
 
 
-        View view = new View(dataframe);
+        ViewDataFrame view = new ViewDataFrame(dataframe);
         view.allDataframe(dataframe);
+        System.out.println();
         view.firstRowDataframe(dataframe,1);
+        System.out.println();
         view.lastRowDataframe(dataframe,1);
 
     }
