@@ -7,7 +7,7 @@ Test coverage | [![codecov](https://codecov.io/gh/NielsTRS/projet_devops/graph/b
 
 ## Commandes
 ```bash
-mvn install
+mvn -B package
 ```
 
 ## Description

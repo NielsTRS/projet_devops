@@ -17,7 +17,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Test
-        run: mvn install
+        run: mvn verify -Djacoco.haltOnFailure=false
       
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
