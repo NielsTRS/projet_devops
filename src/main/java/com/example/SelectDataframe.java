@@ -3,6 +3,7 @@ package com.example;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 public class SelectDataframe extends Dataframe {
 
@@ -26,6 +27,16 @@ public class SelectDataframe extends Dataframe {
             }
         }
         this.addRowsFromColumns(dataframe, columnLabels);
+    }
+
+    // Advanced selection: filter rows based on a condition
+    public SelectDataframe(Dataframe dataframe, Predicate<Map<String, Object>> condition) {
+        super(dataframe.getColumnLabels());
+        for (Map<String, Object> row : dataframe.data) {
+            if (condition.test(row)) {
+                this.addRow(row);
+            }
+        }
     }
 
     private void addRowsFromRange(Dataframe dataframe, int startRow, int endRow) {
