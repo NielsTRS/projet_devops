@@ -5,5 +5,8 @@ coverage:
         enabled: false
     project:
       default:
-        target: 50%
+        target: 80%
         threshold: 5%
+
+ignore:
+  - "src/main/java/com/example/Demo.java"
