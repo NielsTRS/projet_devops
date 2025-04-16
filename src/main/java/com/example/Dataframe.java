@@ -1,7 +1,8 @@
 package com.example;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,13 +28,13 @@ public class Dataframe {
     // The first line of the file should contain the column types
     // The second line of the file should contain the column labels
     // The subsequent lines should contain the data
-    public Dataframe(String csvFilePath){
+    public Dataframe(InputStream inputStream) {
         this.columns = new ArrayList<>();
         this.data = new ArrayList<>();
 
-        List <String> col_types = new ArrayList<>();
+        List<String> col_types = new ArrayList<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
             String line;
             int lineNumber = 0;
 
@@ -43,8 +44,7 @@ public class Dataframe {
                 if (lineNumber == 0) {
                     // First line contains column types
                     col_types = values;
-                }
-                else if (lineNumber == 1) {
+                } else if (lineNumber == 1) {
                     // Second line contains column labels
                     this.setColumnLabels(values);
                 } else {
@@ -74,8 +74,7 @@ public class Dataframe {
                 }
                 lineNumber++;
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

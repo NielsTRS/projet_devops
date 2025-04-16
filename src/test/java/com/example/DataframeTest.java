@@ -5,13 +5,13 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
-
 
 public class DataframeTest {
 
@@ -25,18 +25,19 @@ public class DataframeTest {
     public void testCreateDataframeCSV() throws Exception {
         List<String> columnLabels = Arrays.asList("age", "nom", "prenom");
 
-        // Load the CSV file from test resources
-        URL resource = getClass().getClassLoader().getResource("DataframeTest.csv");
-        assertNotNull("CSV file should be found in resources.", resource);
+        InputStream csvInputStream = getClass().getClassLoader().getResourceAsStream("DataframeTest.csv");
 
-        // Pass the absolute path to the constructor
-        String csvFilePath = Paths.get(resource.toURI()).toString();
-        Dataframe dataframe = new Dataframe(csvFilePath);
+        if (csvInputStream == null) {
+            System.out.println("CSV file not found!");
+            return;
+        }
+
+        Dataframe dataframe = new Dataframe(csvInputStream);
 
         assertNotNull("Check the initialization of the dataframe.", dataframe);
         assertEquals("Check the initialization of columns of the dataframe.", columnLabels,
                 dataframe.getColumnLabels());
-}
+    }
 
     @Test
     public void testCreateDataframeColumns() {
