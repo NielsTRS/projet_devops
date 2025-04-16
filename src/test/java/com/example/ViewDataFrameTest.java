@@ -1,7 +1,6 @@
 package com.example;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import java.util.Arrays;
@@ -28,7 +27,6 @@ public class ViewDataFrameTest {
         return dataframe;
     }
 
-
     @Test
     public void testLabels() {
         Dataframe dataframe = createDefaultDataframe();
@@ -36,7 +34,7 @@ public class ViewDataFrameTest {
         StringBuilder labels = new StringBuilder();
         labels.append("     Name                 Age                  Profession           ");
 
-        assertEquals("Check of the labels of the Dataframe.",0,labels.compareTo(view.labelsDataFrame(dataframe, 5, 20)));
+        assertEquals("Check of the labels of the Dataframe.", 0, labels.compareTo(view.labelsDataFrame(5, 20)));
     }
 
     @Test
@@ -44,10 +42,13 @@ public class ViewDataFrameTest {
         Dataframe dataframe = createDefaultDataframe();
         ViewDataFrame view = new ViewDataFrame(dataframe);
         StringBuilder body = new StringBuilder();
-        body.append("0    Athéna               23                   Engineer             \n1    Briséis              30                   Doctor               \n");
+        body.append(
+                "0    Athéna               23                   Engineer             \n1    Briséis              30                   Doctor               \n");
 
-        //assertEquals(body,view.bodyDataFrame(dataframe, 5, 20, 1, dataframe.getRowCount()));
-        assertEquals("Check the body of the Dataframe.",0,body.compareTo(view.bodyDataFrame(dataframe, 5, 20, 0, dataframe.getRowCount())));
+        // assertEquals(body,view.bodyDataFrame(dataframe, 5, 20, 1,
+        // dataframe.getRowCount()));
+        assertEquals("Check the body of the Dataframe.", 0,
+                body.compareTo(view.bodyDataFrame(5, 20, 0, dataframe.getRowCount())));
     }
 
     @Test
@@ -58,8 +59,9 @@ public class ViewDataFrameTest {
         StringBuilder body = new StringBuilder();
         body.append("0    Athéna               23                   Engineer             \n");
 
-        //assertEquals(body,view.bodyDataFrame(dataframe, 5, 20, 1, dataframe.getRowCount()));
-        assertEquals("Check the begin of the Dataframe.",0,body.compareTo(view.bodyDataFrame(dataframe, 5, 20, 0, 1)));
+        // assertEquals(body,view.bodyDataFrame(dataframe, 5, 20, 1,
+        // dataframe.getRowCount()));
+        assertEquals("Check the begin of the Dataframe.", 0, body.compareTo(view.bodyDataFrame(5, 20, 0, 1)));
     }
 
     @Test
@@ -69,7 +71,8 @@ public class ViewDataFrameTest {
         StringBuilder body = new StringBuilder();
         body.append("1    Briséis              30                   Doctor               \n");
 
-        assertEquals("Check the end of the Dataframe.",0,body.compareTo(view.bodyDataFrame(dataframe, 5, 20, 1, dataframe.getRowCount())));
+        assertEquals("Check the end of the Dataframe.", 0,
+                body.compareTo(view.bodyDataFrame(5, 20, 1, dataframe.getRowCount())));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -77,7 +80,7 @@ public class ViewDataFrameTest {
         Dataframe dataframe = createDefaultDataframe();
         ViewDataFrame view = new ViewDataFrame(dataframe);
 
-        view.bodyDataFrame(dataframe, 5, 20, 1, 0);
+        view.bodyDataFrame(5, 20, 1, 0);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -85,7 +88,7 @@ public class ViewDataFrameTest {
         Dataframe dataframe = createDefaultDataframe();
         ViewDataFrame view = new ViewDataFrame(dataframe);
 
-        view.bodyDataFrame(dataframe, 5, 20, -1, 1);
+        view.bodyDataFrame(5, 20, -1, 1);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -93,7 +96,7 @@ public class ViewDataFrameTest {
         Dataframe dataframe = createDefaultDataframe();
         ViewDataFrame view = new ViewDataFrame(dataframe);
 
-        view.bodyDataFrame(dataframe, 5, 20, 1, dataframe.getRowCount()+3);
+        view.bodyDataFrame(5, 20, 1, dataframe.getRowCount() + 3);
     }
 
 }
