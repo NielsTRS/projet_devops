@@ -1,6 +1,8 @@
 package com.example;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
@@ -8,6 +10,35 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DataframeTest {
+
+    @Test
+    public void testCreateDataframe() {
+        Dataframe dataframe = new Dataframe();
+        assertNotNull("Check the initialisation of the dataframe.",dataframe);
+    }
+
+    @Test
+    public void testCreateDataframeColumns() {
+        List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
+        Dataframe dataframe = new Dataframe(columnLabels);
+        assertNotNull("Check the initialisation of the dataframe.",dataframe);
+        assertEquals("Check the initialisation of columns of the dataframe.",columnLabels, dataframe.getColumnLabels());
+    }
+
+    @Test
+    public void testGetColumnCount() {
+        List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
+        Dataframe dataframe = new Dataframe(columnLabels);
+        assertEquals("Check the number of columns.",3, dataframe.getColumnCount());
+    }
+
+    @Test
+    public void testSetColumnLabels() {
+        List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
+        Dataframe dataframe = new Dataframe();
+        dataframe.setColumnLabels(columnLabels);
+        assertEquals("Check the addition of columns in the dataframe.",columnLabels, dataframe.getColumnLabels());
+    }
 
     @Test
     public void testAddRow() {
@@ -19,8 +50,18 @@ public class DataframeTest {
         row.put("Profession", "Engineer");
         dataframe.addRow(row);
 
-        assertEquals(1, dataframe.getRowCount());
-        assertEquals(Arrays.asList("Alice", 25, "Engineer"), dataframe.getRow(0));
+        assertEquals("Check the number of rows.",1, dataframe.getRowCount());
+        assertEquals("Check the added row.",Arrays.asList("Alice", 25, "Engineer"), dataframe.getRow(0));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void InvalidAddRowTest() {
+        List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
+        Dataframe dataframe = new Dataframe(columnLabels);
+        Map<String, Object> row = new HashMap<>();
+        row.put("Name", "Alice");
+        row.put("Age", 25);
+        dataframe.addRow(row);
     }
 
     @Test
@@ -40,8 +81,8 @@ public class DataframeTest {
         dataframe.addRow(row2);
 
         dataframe.removeRow(0);
-        assertEquals(1, dataframe.getRowCount());
-        assertEquals(Arrays.asList("Bob", 30, "Doctor"), dataframe.getRow(0));
+        assertEquals("Check the number of rows.",1, dataframe.getRowCount());
+        assertEquals("Check that the deleted line has been properly deleted.",Arrays.asList("Bob", 30, "Doctor"), dataframe.getRow(0));
     }
 
     @Test
@@ -55,7 +96,7 @@ public class DataframeTest {
         row.put("Age", 25);
         row.put("Profession", "Engineer");
         dataframe.addRow(row);
-        assertEquals(1, dataframe.getRowCount());
+        assertEquals("Check the number of rows.",1, dataframe.getRowCount());
     }
 
     @Test
@@ -68,25 +109,11 @@ public class DataframeTest {
         row.put("Profession", "Engineer");
         dataframe.addRow(row);
 
-        assertEquals("Alice", dataframe.getValue(0, "Name"));
-        assertEquals(25, dataframe.getValue(0, "Age"));
-        assertEquals("Engineer", dataframe.getValue(0, "Profession"));
+        assertEquals("Check the added Name.","Alice", dataframe.getValue(0, "Name"));
+        assertEquals("Check the added Age.",25, dataframe.getValue(0, "Age"));
+        assertEquals("Check the added Profession.","Engineer", dataframe.getValue(0, "Profession"));
     }
 
-    @Test
-    public void testColumnLabels() {
-        List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
-        Dataframe dataframe = new Dataframe(columnLabels);
-
-        assertEquals(columnLabels, dataframe.getColumnLabels());
-    }
-
-    @Test
-    public void testGetColumnCount() {
-        List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
-        Dataframe dataframe = new Dataframe(columnLabels);
-        assertEquals(3, dataframe.getColumnCount());
-    }
 
     @Test(expected = IllegalArgumentException.class) 
     public void InvalidColumnNameTest() {
@@ -101,7 +128,7 @@ public class DataframeTest {
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void InvalidRowIndexTest() {
+    public void TooBigRowIndexTest() {
         List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
         Dataframe dataframe = new Dataframe(columnLabels);
         Map<String, Object> row = new HashMap<>();
@@ -112,4 +139,111 @@ public class DataframeTest {
         dataframe.getValue(1, "Name");
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void NegativeRowIndexTest() {
+        List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
+        Dataframe dataframe = new Dataframe(columnLabels);
+        Map<String, Object> row = new HashMap<>();
+        row.put("Name", "Alice");
+        row.put("Age", 25);
+        row.put("Profession", "Engineer");
+        dataframe.addRow(row);
+        dataframe.getValue(-1, "Name");
+    }
+
+    @Test
+    public void testGetColumn() {
+        List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
+        Dataframe dataframe = new Dataframe(columnLabels);
+        Map<String, Object> row1 = new HashMap<>();
+        row1.put("Name", "Alice");
+        row1.put("Age", 25);
+        row1.put("Profession", "Engineer");
+        dataframe.addRow(row1);
+
+        Map<String, Object> row2 = new HashMap<>();
+        row2.put("Name", "Bob");
+        row2.put("Age", 30);
+        row2.put("Profession", "Doctor");
+        dataframe.addRow(row2);
+
+        List<Object> col = dataframe.getColumn(0);
+        assertEquals("Check the first column.",Arrays.asList("Alice","Bob"), col);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void NegativeIndexGetColumnTest() {
+        List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
+        Dataframe dataframe = new Dataframe(columnLabels);
+        Map<String, Object> row1 = new HashMap<>();
+        row1.put("Name", "Alice");
+        row1.put("Age", 25);
+        row1.put("Profession", "Engineer");
+        dataframe.addRow(row1);
+
+        Map<String, Object> row2 = new HashMap<>();
+        row2.put("Name", "Bob");
+        row2.put("Age", 30);
+        row2.put("Profession", "Doctor");
+        dataframe.addRow(row2);
+
+        List<Object> col = dataframe.getColumn(-1);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void TooMuchIndexGetColumnTest() {
+        List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
+        Dataframe dataframe = new Dataframe(columnLabels);
+        Map<String, Object> row1 = new HashMap<>();
+        row1.put("Name", "Alice");
+        row1.put("Age", 25);
+        row1.put("Profession", "Engineer");
+        dataframe.addRow(row1);
+
+        Map<String, Object> row2 = new HashMap<>();
+        row2.put("Name", "Bob");
+        row2.put("Age", 30);
+        row2.put("Profession", "Doctor");
+        dataframe.addRow(row2);
+
+        List<Object> col = dataframe.getColumn(5);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void NegativeIndexGetRowTest() {
+        List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
+        Dataframe dataframe = new Dataframe(columnLabels);
+        Map<String, Object> row1 = new HashMap<>();
+        row1.put("Name", "Alice");
+        row1.put("Age", 25);
+        row1.put("Profession", "Engineer");
+        dataframe.addRow(row1);
+
+        Map<String, Object> row2 = new HashMap<>();
+        row2.put("Name", "Bob");
+        row2.put("Age", 30);
+        row2.put("Profession", "Doctor");
+        dataframe.addRow(row2);
+
+        List<Object> row = dataframe.getRow(-1);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void TooMuchIndexGetRowTest() {
+        List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
+        Dataframe dataframe = new Dataframe(columnLabels);
+        Map<String, Object> row1 = new HashMap<>();
+        row1.put("Name", "Alice");
+        row1.put("Age", 25);
+        row1.put("Profession", "Engineer");
+        dataframe.addRow(row1);
+
+        Map<String, Object> row2 = new HashMap<>();
+        row2.put("Name", "Bob");
+        row2.put("Age", 30);
+        row2.put("Profession", "Doctor");
+        dataframe.addRow(row2);
+
+        List<Object> row = dataframe.getRow(5);
+    }
 }
