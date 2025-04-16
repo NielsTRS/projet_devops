@@ -69,6 +69,20 @@ mvn -B package
 - Dépôt Github :
 
 ## Workflow git
+Au début du projet, nous avons adopté la stratégie de créer une branche main pour la version stable du code.
+Pour le développement, chaque fonctionnalité disposait de sa propre branche featureX/main, à laquelle étaient rattachées des sous-branches individuelles pour chaque membre du groupe, par exemple :
+- main
+- feature1/main
+- feature1/Prénom
+
+...
+- featureN/main
+- featureN/Prénom
+
+Cette organisation permettait à chacun de travailler en parallèle sur une fonctionnalité spécifique sans interférer avec le travail des autres.
+Une fois la base du code mise en place, nous avons fait évoluer notre stratégie : chaque fonctionnalité est désormais développée dans une unique branche featureX, sans sous-branche par personne. 
+Cela réduit la complexité du suivi des modifications.
+
 ## Docker
 ## Feedback
 
