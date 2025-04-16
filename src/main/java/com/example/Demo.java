@@ -1,5 +1,6 @@
 package com.example;
 
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -43,17 +44,14 @@ public class Demo {
         // Créer un DataFrame avec des données fictives à partir d'un fichier CSV
         System.out.println("\nDemo de DataFrame à partir d'un fichier CSV\n");
 
-        URL resource = Demo.class.getClassLoader().getResource("demo.csv");
+        InputStream csvInputStream = Demo.class.getClassLoader().getResourceAsStream("demo.csv");
 
-        // Pass the absolute path to the constructor
-        String csvFilePath = null;
-        try {
-            csvFilePath = Paths.get(resource.toURI()).toString();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
+        if (csvInputStream == null) {
+            System.out.println("CSV file not found!");
+            return;
         }
 
-        Dataframe dataframeCSV = new Dataframe(csvFilePath);
+        Dataframe dataframeCSV = new Dataframe(csvInputStream);
         demo(dataframeCSV);
 
     }
