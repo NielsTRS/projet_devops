@@ -1,5 +1,8 @@
 package com.example;
 
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +10,10 @@ import java.util.Map;
 
 public class Demo {
     public static void main(String[] args) {
+
         // Créer un DataFrame avec des données fictives
+        System.out.println("Demo de DataFrame");
+
         List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
 
         Dataframe dataframe = new Dataframe(columnLabels);
@@ -32,6 +38,27 @@ public class Demo {
         dataframe.addRow(row2);
         dataframe.addRow(row3);
 
+        demo(dataframe);
+
+        // Créer un DataFrame avec des données fictives à partir d'un fichier CSV
+        System.out.println("\nDemo de DataFrame à partir d'un fichier CSV\n");
+
+        URL resource = Demo.class.getClassLoader().getResource("demo.csv");
+
+        // Pass the absolute path to the constructor
+        String csvFilePath = null;
+        try {
+            csvFilePath = Paths.get(resource.toURI()).toString();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        Dataframe dataframeCSV = new Dataframe(csvFilePath);
+        demo(dataframeCSV);
+
+    }
+
+    private static void demo(Dataframe dataframe) {
         // Afficher le DataFrame
         ViewDataFrame view = new ViewDataFrame(dataframe);
         view.allDataframe();
@@ -55,6 +82,5 @@ public class Demo {
         SelectDataframe selected = new SelectDataframe(dataframe, Arrays.asList("Name", "Profession"));
         ViewDataFrame view2 = new ViewDataFrame(selected);
         view2.allDataframe();
-
     }
 }
