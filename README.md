@@ -120,6 +120,6 @@ docker run ghcr.io/nielstrs/projet_devops:main
 ```
 
 ## Feedback
+Ce projet nous a vraiment permis de mieux comprendre l’intérêt des outils vus en cours. Le fait de devoir les utiliser dans un vrai projet à plusieurs (on était 4 dans notre cas) nous a montré comment ils s’intègrent concrètement dans un workflow de développement.
 
-
-
+On a pu voir en pratique comment mettre en place l’intégration continue, gérer les tests, la couverture de code, et automatiser certaines tâches. L’ajout d’outils externes comme Codecov a été un vrai plus pour suivre la qualité du code, surtout combiné avec JaCoCo pour la génération des rapports de couverture.
