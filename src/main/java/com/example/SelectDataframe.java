@@ -58,5 +58,4 @@ public class SelectDataframe extends Dataframe {
             this.addRow(newRow);
         }
     }
-
 }
