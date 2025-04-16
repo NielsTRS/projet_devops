@@ -57,16 +57,17 @@ mvn -B package
   - Ajouter des plugins
   
 - JUnit :
-  - Créer des tests unitaires
+  - Permet de lancer des tests unitaires
 
 - Jacoco :
   - Générer un rapport de couverture de code
 
 - Codecov :
-    - Intégration de Jacoco avec Github
-    - Afficher la couverture de code sur le dépôt Github
+    - Refait des tests de couvertures indépendant de Jacoco depuis le dépot GitHub
+    - Récupération du badge de la couverture de code sur le README du dépot GitHub
   
-- Dépôt Github :
+- Docker : 
+    - Création d'une image docker contenant toutes les dépendances nécessaires ainsi qu'une démo lors du lancement
 
 ## Workflow git
 Au début du projet, nous avons adopté la stratégie de créer une branche main pour la version stable du code.
