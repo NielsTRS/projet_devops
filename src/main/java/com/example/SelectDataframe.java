@@ -11,10 +11,10 @@ public class SelectDataframe extends Dataframe {
     public SelectDataframe(Dataframe dataframe, int startRow, int endRow) {
         super(dataframe.getColumnLabels());
 
-        if (startRow < 0 || endRow > dataframe.getRowCount() || startRow >= endRow) {
+        if (startRow < 0 || endRow >= dataframe.getRowCount() || startRow > endRow) {
             throw new IllegalArgumentException("Invalid row range");
         }
-        this.addRowsFromRange(dataframe, startRow, endRow);
+        this.addRowsFromRange(dataframe, startRow, endRow + 1);
     }
 
     // Build new Dataframe from a subset of columns

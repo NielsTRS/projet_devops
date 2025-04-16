@@ -21,7 +21,7 @@ public class SelectDataframeTest {
 
         Map<String, Object> row1 = new HashMap<>();
         row1.put("Name", "Alice");
-        row1.put("Age", 25);
+        row1.put("Age", 26);
         row1.put("Profession", "Engineer");
         dataframe.addRow(row1);
 
@@ -39,7 +39,7 @@ public class SelectDataframeTest {
         Dataframe dataframe = createDefaultDataframe();
         SelectDataframe selected = new SelectDataframe(dataframe, 0, 1);
 
-        assertEquals("Check of the number of rows with bounds.",1, selected.getRowCount());
+        assertEquals("The number of rows with bounds",2, selected.getRowCount());
     }
 
     @Test
@@ -47,31 +47,41 @@ public class SelectDataframeTest {
         Dataframe dataframe = createDefaultDataframe();
         SelectDataframe selected = new SelectDataframe(dataframe, 0, 1);
 
-        assertEquals("Check the subDataFrame.",Arrays.asList("Alice", 25, "Engineer"), selected.getRow(0));
+        assertEquals("Content of the first row with bounds", Arrays.asList("Alice", 26, "Engineer"), selected.getRow(0));
+        assertEquals("Content of the second row with bounds", Arrays.asList("Bob", 30, "Doctor"), selected.getRow(1));
+    }
+
+    @Test
+    public void testSelectSingleRow() {
+        Dataframe dataframe = createDefaultDataframe();
+        SelectDataframe selected = new SelectDataframe(dataframe, 0, 0);
+
+        // Vérifie que seule la ligne 0 est incluse
+        assertEquals("The number of selected rows",1, selected.getRowCount());
+        assertEquals("Content of the first and only row",Arrays.asList("Alice", 26, "Engineer"), selected.getRow(0));
     }
 
     @Test
     public void testSelectColumnsRowCount() {
         Dataframe dataframe = createDefaultDataframe();
         SelectDataframe selected = new SelectDataframe(dataframe, Arrays.asList("Name", "Profession"));
-
-        assertEquals("Check the number of rows with a list.",2, selected.getRowCount());
+        assertEquals("The number of rows with labels", 2, selected.getRowCount());
     }
 
     @Test
     public void testSelectColumnsFirstRowContent() {
         Dataframe dataframe = createDefaultDataframe();
         SelectDataframe selected = new SelectDataframe(dataframe, Arrays.asList("Name", "Profession"));
-
-        assertEquals("Check the first column.",Arrays.asList("Alice", "Engineer"), selected.getRow(0));
+        assertEquals("Content of the first row with labels",
+                Arrays.asList("Alice", "Engineer"), selected.getRow(0));
     }
 
     @Test
     public void testSelectColumnsSecondRowContent() {
         Dataframe dataframe = createDefaultDataframe();
         SelectDataframe selected = new SelectDataframe(dataframe, Arrays.asList("Name", "Profession"));
-
-        assertEquals("Check the second column.",Arrays.asList("Bob", "Doctor"), selected.getRow(1));
+        assertEquals("Content of the second row with labels",
+                Arrays.asList("Bob", "Doctor"), selected.getRow(1));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -89,20 +99,24 @@ public class SelectDataframeTest {
     @Test
     public void testAdvancedSelectionRowCount() {
         Dataframe dataframe = createDefaultDataframe();
-
         // Select rows where Age > 25
         SelectDataframe selected = new SelectDataframe(dataframe, row -> (int) row.get("Age") > 25);
-
-        assertEquals("Check the number of rows for advanced selection.",1, selected.getRowCount());
+        assertEquals("Number of rows where Age > 25", 2, selected.getRowCount());
     }
 
     @Test
     public void testAdvancedSelectionRowContent() {
         Dataframe dataframe = createDefaultDataframe();
-
         // Select rows where Age > 25
         SelectDataframe selected = new SelectDataframe(dataframe, row -> (int) row.get("Age") > 25);
 
-        assertEquals("Check the row for advanced selection.",Arrays.asList("Bob", 30, "Doctor"), selected.getRow(0));
+        List<List<Object>> expectedRows = Arrays.asList(
+                Arrays.asList("Alice", 26, "Engineer"),
+                Arrays.asList("Bob", 30, "Doctor")
+        );
+
+        for (int i = 0; i < expectedRows.size(); i++) {
+            assertEquals("Content of row " + i + " where Age > 25", expectedRows.get(i), selected.getRow(i));
+        }
     }
 }
