@@ -48,6 +48,26 @@ mvn -B package
     - Calculer le maximum d'une colonne
   
 ## Outils utilisés
+- Git : 
+  - Permet de gérer différentes versions du code, sur plusieurs branches
+  - Gestion des conflits
+
+- Maven :
+  - Créer la structure de base du projet
+  - Ajouter des plugins
+  
+- JUnit :
+  - Créer des tests unitaires
+
+- Jacoco :
+  - Générer un rapport de couverture de code
+
+- Codecov :
+    - Intégration de Jacoco avec Github
+    - Afficher la couverture de code sur le dépôt Github
+  
+- Dépôt Github :
+
 ## Workflow git
 ## Docker
 ## Feedback
