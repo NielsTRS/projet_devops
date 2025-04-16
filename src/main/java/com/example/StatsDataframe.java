@@ -7,7 +7,7 @@ import java.util.List;
 public class StatsDataframe {
     private Dataframe dataframe;
 
-    public StatsDataframe (Dataframe dataframe) {
+    public StatsDataframe(Dataframe dataframe) {
         this.dataframe = dataframe;
     }
 

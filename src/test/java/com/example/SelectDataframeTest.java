@@ -39,7 +39,7 @@ public class SelectDataframeTest {
         Dataframe dataframe = createDefaultDataframe();
         SelectDataframe selected = new SelectDataframe(dataframe, 0, 1);
 
-        assertEquals("The number of rows with bounds",2, selected.getRowCount());
+        assertEquals("The number of rows with bounds", 2, selected.getRowCount());
     }
 
     @Test
@@ -47,7 +47,8 @@ public class SelectDataframeTest {
         Dataframe dataframe = createDefaultDataframe();
         SelectDataframe selected = new SelectDataframe(dataframe, 0, 1);
 
-        assertEquals("Content of the first row with bounds", Arrays.asList("Alice", 26, "Engineer"), selected.getRow(0));
+        assertEquals("Content of the first row with bounds", Arrays.asList("Alice", 26, "Engineer"),
+                selected.getRow(0));
         assertEquals("Content of the second row with bounds", Arrays.asList("Bob", 30, "Doctor"), selected.getRow(1));
     }
 
@@ -57,8 +58,8 @@ public class SelectDataframeTest {
         SelectDataframe selected = new SelectDataframe(dataframe, 0, 0);
 
         // Vérifie que seule la ligne 0 est incluse
-        assertEquals("The number of selected rows",1, selected.getRowCount());
-        assertEquals("Content of the first and only row",Arrays.asList("Alice", 26, "Engineer"), selected.getRow(0));
+        assertEquals("The number of selected rows", 1, selected.getRowCount());
+        assertEquals("Content of the first and only row", Arrays.asList("Alice", 26, "Engineer"), selected.getRow(0));
     }
 
     @Test
@@ -128,8 +129,7 @@ public class SelectDataframeTest {
 
         List<List<Object>> expectedRows = Arrays.asList(
                 Arrays.asList("Alice", 26, "Engineer"),
-                Arrays.asList("Bob", 30, "Doctor")
-        );
+                Arrays.asList("Bob", 30, "Doctor"));
 
         for (int i = 0; i < expectedRows.size(); i++) {
             assertEquals("Content of row " + i + " where Age > 25", expectedRows.get(i), selected.getRow(i));

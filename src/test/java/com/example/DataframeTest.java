@@ -14,22 +14,23 @@ public class DataframeTest {
     @Test
     public void testCreateDataframe() {
         Dataframe dataframe = new Dataframe();
-        assertNotNull("Check the initialisation of the dataframe.",dataframe);
+        assertNotNull("Check the initialisation of the dataframe.", dataframe);
     }
 
     @Test
     public void testCreateDataframeColumns() {
         List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
         Dataframe dataframe = new Dataframe(columnLabels);
-        assertNotNull("Check the initialisation of the dataframe.",dataframe);
-        assertEquals("Check the initialisation of columns of the dataframe.",columnLabels, dataframe.getColumnLabels());
+        assertNotNull("Check the initialisation of the dataframe.", dataframe);
+        assertEquals("Check the initialisation of columns of the dataframe.", columnLabels,
+                dataframe.getColumnLabels());
     }
 
     @Test
     public void testGetColumnCount() {
         List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
         Dataframe dataframe = new Dataframe(columnLabels);
-        assertEquals("Check the number of columns.",3, dataframe.getColumnCount());
+        assertEquals("Check the number of columns.", 3, dataframe.getColumnCount());
     }
 
     @Test
@@ -37,7 +38,7 @@ public class DataframeTest {
         List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
         Dataframe dataframe = new Dataframe();
         dataframe.setColumnLabels(columnLabels);
-        assertEquals("Check the addition of columns in the dataframe.",columnLabels, dataframe.getColumnLabels());
+        assertEquals("Check the addition of columns in the dataframe.", columnLabels, dataframe.getColumnLabels());
     }
 
     @Test
@@ -50,8 +51,8 @@ public class DataframeTest {
         row.put("Profession", "Engineer");
         dataframe.addRow(row);
 
-        assertEquals("Check the number of rows.",1, dataframe.getRowCount());
-        assertEquals("Check the added row.",Arrays.asList("Alice", 25, "Engineer"), dataframe.getRow(0));
+        assertEquals("Check the number of rows.", 1, dataframe.getRowCount());
+        assertEquals("Check the added row.", Arrays.asList("Alice", 25, "Engineer"), dataframe.getRow(0));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -81,8 +82,9 @@ public class DataframeTest {
         dataframe.addRow(row2);
 
         dataframe.removeRow(0);
-        assertEquals("Check the number of rows.",1, dataframe.getRowCount());
-        assertEquals("Check that the deleted line has been properly deleted.",Arrays.asList("Bob", 30, "Doctor"), dataframe.getRow(0));
+        assertEquals("Check the number of rows.", 1, dataframe.getRowCount());
+        assertEquals("Check that the deleted line has been properly deleted.", Arrays.asList("Bob", 30, "Doctor"),
+                dataframe.getRow(0));
     }
 
     @Test
@@ -96,7 +98,7 @@ public class DataframeTest {
         row.put("Age", 25);
         row.put("Profession", "Engineer");
         dataframe.addRow(row);
-        assertEquals("Check the number of rows.",1, dataframe.getRowCount());
+        assertEquals("Check the number of rows.", 1, dataframe.getRowCount());
     }
 
     @Test
@@ -109,13 +111,12 @@ public class DataframeTest {
         row.put("Profession", "Engineer");
         dataframe.addRow(row);
 
-        assertEquals("Check the added Name.","Alice", dataframe.getValue(0, "Name"));
-        assertEquals("Check the added Age.",25, dataframe.getValue(0, "Age"));
-        assertEquals("Check the added Profession.","Engineer", dataframe.getValue(0, "Profession"));
+        assertEquals("Check the added Name.", "Alice", dataframe.getValue(0, "Name"));
+        assertEquals("Check the added Age.", 25, dataframe.getValue(0, "Age"));
+        assertEquals("Check the added Profession.", "Engineer", dataframe.getValue(0, "Profession"));
     }
 
-
-    @Test(expected = IllegalArgumentException.class) 
+    @Test(expected = IllegalArgumentException.class)
     public void InvalidColumnNameTest() {
         List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
         Dataframe dataframe = new Dataframe(columnLabels);
@@ -168,7 +169,7 @@ public class DataframeTest {
         dataframe.addRow(row2);
 
         List<Object> col = dataframe.getColumn(0);
-        assertEquals("Check the first column.",Arrays.asList("Alice","Bob"), col);
+        assertEquals("Check the first column.", Arrays.asList("Alice", "Bob"), col);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)

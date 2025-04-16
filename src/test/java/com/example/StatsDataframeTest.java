@@ -2,8 +2,6 @@ package com.example;
 
 import org.junit.Test;
 
-import javax.xml.crypto.Data;
-
 import static org.junit.Assert.assertEquals;
 import java.util.*;
 
@@ -41,7 +39,7 @@ public class StatsDataframeTest {
 
         double meanAge = statsDataframe.mean("Age");
 
-        assertEquals("The mean of the 'Age' column",30.0, meanAge, 0.001);
+        assertEquals("The mean of the 'Age' column", 30.0, meanAge, 0.001);
     }
 
     @Test
