@@ -63,7 +63,7 @@ mvn -B package
   - Générer un rapport de couverture de code
 
 - Codecov :
-    - Refait des tests de couvertures indépendant de Jacoco depuis le dépot GitHub
+    - Refait des tests de couvertures indépendants de Jacoco depuis le dépot GitHub
     - Récupération du badge de la couverture de code sur le README du dépot GitHub
   
 - Docker : 
@@ -88,14 +88,14 @@ La branche principale (main) est protégée en écriture, il faut donc faire des
 
 Pour lancer les tests automatiquement, nous utilisons les GitHub Actions : 
 - build : permet vérifier que les tests unitaires sont valides
-- deploy : permet de faire du déployement continue via GitHub Packages
+- deploy : permet de faire du déploiement continue via GitHub Packages
 - coverage : permet de faire les tests de coverages via Codecov
 - docker : permet de faire du déploiement continue via une image Docker et de publier dans GitHub Packages
 
-Le workflow "build" est lancé à chaque commit, peut importe la branche.
-Les autres se lancent lors d'une Pull Request et a nouveau quand les modifications sont apportés dans la branche principale (main).
+Le workflow "build" est lancé à chaque commit, peu importe la branche.
+Les autres se lancent lors d'une Pull Request et à nouveau quand les modifications sont apportées dans la branche principale (main).
 
-Ainsi, si tous les tests lors d'une PR passent, le déployement se fait automatiquement.
+Ainsi, si tous les tests lors d'une PR passent, le déploiement se fait automatiquement.
 Ce n'était pas le cas au début, nous avions décidé de la faire quand un tag est créé manuellement dans main.
 
 PS : pour les tests de coverage, il faut avoir un coverage d'au moins 80%
