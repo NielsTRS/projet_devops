@@ -21,6 +21,8 @@ public class StatsDataframe {
             if (value instanceof Number) {
                 sum += ((Number) value).doubleValue();
                 count++;
+            } else {
+                throw new IllegalArgumentException("Column " + columnLabel + " contains non-numeric values.");
             }
         }
 
@@ -38,6 +40,8 @@ public class StatsDataframe {
                 if (numValue < min) {
                     min = numValue;
                 }
+            } else {
+                throw new IllegalArgumentException("Column " + columnLabel + " contains non-numeric values.");
             }
         }
 
@@ -55,6 +59,8 @@ public class StatsDataframe {
                 if (numValue > max) {
                     max = numValue;
                 }
+            } else {
+                throw new IllegalArgumentException("Column " + columnLabel + " contains non-numeric values.");
             }
         }
 
@@ -69,6 +75,8 @@ public class StatsDataframe {
             Object value = dataframe.getValue(i, columnLabel);
             if (value instanceof Number) {
                 values.add(((Number) value).doubleValue());
+            } else {
+                throw new IllegalArgumentException("Column " + columnLabel + " contains non-numeric values.");
             }
         }
 
