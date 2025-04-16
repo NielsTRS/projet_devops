@@ -13,6 +13,7 @@ public class ViewDataFrame {
     }
 
     public StringBuilder labelsDataFrame(Dataframe dataframe, int index, int size) {
+
         StringBuilder lab = new StringBuilder();
 
         lab.append(" ".repeat(index));
@@ -26,6 +27,10 @@ public class ViewDataFrame {
     }
 
     public StringBuilder bodyDataFrame(Dataframe dataframe, int index, int size, int begin, int end) {
+        if (begin < 0 || end > dataframe.getRowCount() || begin >= end) {
+            throw new IllegalArgumentException("Invalid row range");
+        }
+
         StringBuilder body = new StringBuilder();
         for (int i = begin; i < end; i++) {
             List<Object> row = dataframe.getRow(i);
@@ -76,29 +81,4 @@ public class ViewDataFrame {
         System.out.print(bodyDataFrame(dataframe, index, size, nbRows, dataframe.getRowCount()));
     }
 
-/*    public static void main(String[] args) {
-        List<String> columnLabels = Arrays.asList("Name", "Age", "Profession");
-        Dataframe dataframe = new Dataframe(columnLabels);
-        Map<String, Object> row1 = new HashMap<>();
-        row1.put("Name", "Athéna");
-        row1.put("Age", 23);
-        row1.put("Profession", "Engineer");
-        dataframe.addRow(row1);
-
-        Map<String, Object> row2 = new HashMap<>();
-        row2.put("Name", "Briséis");
-        row2.put("Age", 30);
-        row2.put("Profession", "Doctor");
-        dataframe.addRow(row2);
-
-
-        ViewDataFrame view = new ViewDataFrame(dataframe);
-        view.allDataframe(dataframe);
-        System.out.println();
-        view.firstRowDataframe(dataframe, 1);
-        System.out.println();
-        view.lastRowDataframe(dataframe, 1);
-        System.out.println();
-
-    }*/
 }
