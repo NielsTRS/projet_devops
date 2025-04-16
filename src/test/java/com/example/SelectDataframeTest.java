@@ -84,12 +84,28 @@ public class SelectDataframeTest {
                 Arrays.asList("Bob", "Doctor"), selected.getRow(1));
     }
 
+    // Test invalid row range : startRow < 0
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidRowRange() {
         Dataframe dataframe = createDefaultDataframe();
         new SelectDataframe(dataframe, -1, 1);
     }
 
+    // Test invalid row range : endRow >= dataframe.getRowCount()
+    @Test(expected = IllegalArgumentException.class)
+    public void testInvalidRowRange2() {
+        Dataframe dataframe = createDefaultDataframe();
+        new SelectDataframe(dataframe, 0, 3);
+    }
+
+    // Test invalid row range : startRow > endRow
+    @Test(expected = IllegalArgumentException.class)
+    public void testInvalidRowRange3() {
+        Dataframe dataframe = createDefaultDataframe();
+        new SelectDataframe(dataframe, 1, 0);
+    }
+
+    // Test invalid column
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidColumnLabels() {
         Dataframe dataframe = createDefaultDataframe();
@@ -118,5 +134,13 @@ public class SelectDataframeTest {
         for (int i = 0; i < expectedRows.size(); i++) {
             assertEquals("Content of row " + i + " where Age > 25", expectedRows.get(i), selected.getRow(i));
         }
+    }
+
+    @Test
+    public void testAdvancedSelectionEmpty() {
+        Dataframe dataframe = createDefaultDataframe();
+        // Select rows where Age < 20
+        SelectDataframe selected = new SelectDataframe(dataframe, row -> (int) row.get("Age") < 20);
+        assertEquals("Number of rows where Age < 20", 0, selected.getRowCount());
     }
 }
