@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Dataframe {
-    private List<String> columns;
-    private List<Map<String, Object>> data;
+    protected List<String> columns;
+    protected List<Map<String, Object>> data;
 
     // Constructor without column labels
     public Dataframe() {
