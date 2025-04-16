@@ -27,7 +27,6 @@ public class Demo {
         row3.put("Name", "Bob");
         row3.put("Age", 70);
         row3.put("Profession", "Informatician");
-        
 
         dataframe.addRow(row);
         dataframe.addRow(row2);
@@ -49,5 +48,13 @@ public class Demo {
         System.out.println("La valeur minimale de la colonne 'Age' est : " + minAge);
         System.out.println("La valeur maximale de la colonne 'Age' est : " + maxAge);
         System.out.println("La médiane de la colonne 'Age' est : " + medianAge);
+
+        // Selection de dataframe
+        System.out.println("\nSélection de colonnes spécifiques :");
+
+        SelectDataframe selected = new SelectDataframe(dataframe, Arrays.asList("Name", "Profession"));
+        ViewDataFrame view2 = new ViewDataFrame(selected);
+        view2.allDataframe();
+
     }
 }
