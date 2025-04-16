@@ -63,7 +63,7 @@ mvn -B package
   - Générer un rapport de couverture de code
 
 - Codecov :
-    - Refait des tests de couvertures indépendants de Jacoco depuis le dépot GitHub
+    - Interprete les résultats du test de couverture de Jacoco
     - Récupération du badge de la couverture de code sur le README du dépot GitHub
   
 - Docker : 
@@ -87,9 +87,9 @@ Cela réduit la complexité du suivi des modifications.
 La branche principale (main) est protégée en écriture, il faut donc faire des PR (Pull Request) afin de merge les nouvelles fonctionnalités à la branche principale.
 
 Pour lancer les tests automatiquement, nous utilisons les GitHub Actions : 
-- build : permet vérifier que les tests unitaires sont valides
+- build : permet vérifier que les tests unitaires
 - deploy : permet de faire du déploiement continue via GitHub Packages
-- coverage : permet de faire les tests de coverages via Codecov
+- coverage : permet de faire les tests de coverages Jacoco que Codecov récupèrent
 - docker : permet de faire du déploiement continue via une image Docker et de publier dans GitHub Packages
 
 Le workflow "build" est lancé à chaque commit, peu importe la branche.
