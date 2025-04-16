@@ -16,7 +16,7 @@ mvn -B package
 ## Fonctionnalités
 4 classes Java :
 - DataFrame :
-  -  2 constructeurs : Création d'un dataframe avec et sans labels
+  -  3 constructeurs : Création d'un dataframe avec et sans labels, et à partir d'un fichier CSV
   - Récupérer les labels
   - Ajouter les labels
   - Récupérer une valeur
