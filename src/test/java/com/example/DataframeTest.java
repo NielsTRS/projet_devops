@@ -6,8 +6,6 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.HashMap;
@@ -210,7 +208,7 @@ public class DataframeTest {
         row2.put("Profession", "Doctor");
         dataframe.addRow(row2);
 
-        List<Object> col = dataframe.getColumn(-1);
+        dataframe.getColumn(-1);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
@@ -229,7 +227,7 @@ public class DataframeTest {
         row2.put("Profession", "Doctor");
         dataframe.addRow(row2);
 
-        List<Object> col = dataframe.getColumn(5);
+        dataframe.getColumn(5);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
@@ -248,7 +246,7 @@ public class DataframeTest {
         row2.put("Profession", "Doctor");
         dataframe.addRow(row2);
 
-        List<Object> row = dataframe.getRow(-1);
+        dataframe.getRow(-1);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
@@ -267,6 +265,6 @@ public class DataframeTest {
         row2.put("Profession", "Doctor");
         dataframe.addRow(row2);
 
-        List<Object> row = dataframe.getRow(5);
+        dataframe.getRow(5);
     }
 }
