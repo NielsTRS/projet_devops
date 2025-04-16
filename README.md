@@ -96,7 +96,8 @@ Le workflow "build" est lancé à chaque commit, peu importe la branche.
 Les autres se lancent lors d'une Pull Request et à nouveau quand les modifications sont apportées dans la branche principale (main).
 
 Ainsi, si tous les tests lors d'une PR passent, le déploiement se fait automatiquement.
-Ce n'était pas le cas au début, nous avions décidé de la faire quand un tag est créé manuellement dans main.
+Nous avons donc 2 déloiements, un via Docker, et sous forme de package maven.
+Au début du projet, nous avions décidé de la faire quand un tag était créé manuellement dans main.
 
 PS : pour les tests de coverage, il faut avoir un coverage d'au moins 80%
 
