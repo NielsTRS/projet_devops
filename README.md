@@ -101,6 +101,23 @@ Ce n'était pas le cas au début, nous avions décidé de la faire quand un tag 
 PS : pour les tests de coverage, il faut avoir un coverage d'au moins 80%
 
 ## Docker
+Pour le déploiement continue utilisant Docker, nous avons un workflow GitHub qui permet de publier la nouvelle image docker dans GitLab Packages à condition que tous les tests unitaires + coverages passent et que le pourcentage de coverage est supérieur à 80%.
+
+Pour ce faire, nous avons un fichier Dockerfile sur une base de java17-jdk alpine, dans lequel nous copions notre projet.
+
+La commande "mvn install" permet de faire l'installation des dépendances ainsi que de relancer les tests unitaires + coverages.
+Si tous les tests sont valides, l'image docker est ensuite créée et publiée.
+
+Pour utiliser notre image, il faut faire la commande suivante : 
+```sh
+docker pull ghcr.io/nielstrs/projet_devops:main
+```
+
+Pour tester notre projet, nous avons une petite démo qui montre les possibilités de notre librairie DataFrame.
+```sh
+docker run ghcr.io/nielstrs/projet_devops:main
+```
+
 ## Feedback
 
 
