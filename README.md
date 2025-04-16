@@ -87,7 +87,7 @@ Cela réduit la complexité du suivi des modifications.
 La branche principale (main) est protégée en écriture, il faut donc faire des PR (Pull Request) afin de merge les nouvelles fonctionnalités à la branche principale.
 
 Pour lancer les tests automatiquement, nous utilisons les GitHub Actions : 
-- build : permet vérifier que les tests unitaires
+- build : permet vérifier que les tests unitaires passent
 - deploy : permet de faire du déploiement continue via GitHub Packages
 - coverage : permet de faire les tests de coverages Jacoco que Codecov récupèrent
 - docker : permet de faire du déploiement continue via une image Docker et de publier dans GitHub Packages
@@ -101,7 +101,7 @@ Ce n'était pas le cas au début, nous avions décidé de la faire quand un tag 
 PS : pour les tests de coverage, il faut avoir un coverage d'au moins 80%
 
 ## Docker
-Pour le déploiement continue utilisant Docker, nous avons un workflow GitHub qui permet de publier la nouvelle image docker dans GitLab Packages à condition que tous les tests unitaires + coverages passent et que le pourcentage de coverage est supérieur à 80%.
+Pour le déploiement continu utilisant Docker, nous avons un workflow GitHub qui permet de publier la nouvelle image docker dans GitLab Packages à condition que tous les tests unitaires + coverages passent et que le pourcentage de coverage est supérieur à 80%.
 
 Pour ce faire, nous avons un fichier Dockerfile sur une base de java17-jdk alpine, dans lequel nous copions notre projet.
 
