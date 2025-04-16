@@ -24,6 +24,9 @@ public class Dataframe {
     }
 
     // Constructor with a .csv file as input
+    // The first line of the file should contain the column types
+    // The second line of the file should contain the column labels
+    // The subsequent lines should contain the data
     public Dataframe(String csvFilePath){
         this.columns = new ArrayList<>();
         this.data = new ArrayList<>();
@@ -44,8 +47,7 @@ public class Dataframe {
                 else if (lineNumber == 1) {
                     // Second line contains column labels
                     this.setColumnLabels(values);
-                } 
-                else {
+                } else {
                     // Subsequent lines contain row data
                     Map<String, Object> row = new HashMap<>();
                     for (int i = 0; i < values.size(); i++) {
