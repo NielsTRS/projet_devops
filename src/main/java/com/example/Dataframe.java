@@ -41,10 +41,11 @@ public class Dataframe {
                     // First line contains column types
                     col_types = values;
                 }
-                if (lineNumber == 1) {
+                else if (lineNumber == 1) {
                     // Second line contains column labels
                     this.setColumnLabels(values);
-                } else {
+                } 
+                else {
                     // Subsequent lines contain row data
                     Map<String, Object> row = new HashMap<>();
                     for (int i = 0; i < values.size(); i++) {
