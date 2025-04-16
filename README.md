@@ -84,6 +84,22 @@ Cette organisation permettait à chacun de travailler en parallèle sur une fonc
 Une fois la base du code mise en place, nous avons fait évoluer notre stratégie : chaque fonctionnalité est désormais développée dans une unique branche featureX, sans sous-branche par personne. 
 Cela réduit la complexité du suivi des modifications.
 
+La branche principale (main) est protégée en écriture, il faut donc faire des PR (Pull Request) afin de merge les nouvelles fonctionnalités à la branche principale.
+
+Pour lancer les tests automatiquement, nous utilisons les GitHub Actions : 
+- build : permet vérifier que les tests unitaires sont valides
+- deploy : permet de faire du déployement continue via GitHub Packages
+- coverage : permet de faire les tests de coverages via Codecov
+- docker : permet de faire du déploiement continue via une image Docker et de publier dans GitHub Packages
+
+Le workflow "build" est lancé à chaque commit, peut importe la branche.
+Les autres se lancent lors d'une Pull Request et a nouveau quand les modifications sont apportés dans la branche principale (main).
+
+Ainsi, si tous les tests lors d'une PR passent, le déployement se fait automatiquement.
+Ce n'était pas le cas au début, nous avions décidé de la faire quand un tag est créé manuellement dans main.
+
+PS : pour les tests de coverage, il faut avoir un coverage d'au moins 80%
+
 ## Docker
 ## Feedback
 
